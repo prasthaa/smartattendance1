@@ -5,6 +5,12 @@ from keras.models import load_model
 from sklearn import datasets
 from .helper_functions import get_embedding,extract_face
 
+import albumentations as A
+import cv2
+import os
+import matplotlib.pyplot as plt
+import numpy as np
+
 from numpy import load, concatenate,savez_compressed
 from numpy import where, delete
 from flask import current_app as app
@@ -116,9 +122,49 @@ def updated_train():
   new_trainX, new_trainy = load_new_dataset(datasets_dir, trained_classes)
   print(new_trainX.shape, new_trainy.shape)
 #datasets : 1 : 5 , 2: 5 , 3 : 5
-# Augmentation coode :  1 - 20, 2: 20, 3: 20
+# Augmentation code :  1 - 20, 2: 20, 3: 20
 
 ###############AUGMENTATION##############
+path = "C:/Users/Dell/Desktop/attedance_pic/ATTENDANCE"
+
+images = []
+for filename in os.listdir(path):
+  img = cv2.imread(os.path.join(path, filename))
+  if img is not None:
+    images.append(img)
+
+#Data Augumentation: With Blurs and Distorsions
+transform = A.Compose([
+                       A.Transpose(p=0.5),
+                       A.VerticalFlip(p=0.5),
+                       A.HorizontalFlip(p=0.5),
+                       A.Rotate(p=0.5),
+                       A.RandomBrightness(limit=0.2, p=0.5),
+                       A.RandomContrast(limit=0.2, p=0.5),
+                       A.OneOf([
+                                A.MotionBlur(blur_limit=5, p=0.25),
+                                A.MedianBlur(blur_limit=5, p=0.25),
+                                A.GaussianBlur(blur_limit=5, p=0.25),
+                                A.GaussNoise(var_limit=(5.0, 30.0), p=0.25)                                
+                       ]),
+                       A.OneOf([
+                                A.OpticalDistortion(distort_limit=1.0, p=0.25),
+                                A.GridDistortion(num_steps=5, distort_limit=1., p=0.25),
+                                A.ElasticTransform(alpha=3, p=0.25)                               
+                       ]),
+                       A.CLAHE(clip_limit=4.0, p=0.7),
+                       A.HueSaturationValue(hue_shift_limit=10, sat_shift_limit=20, val_shift_limit=10, p=0.5),
+                       A.ShiftScaleRotate(shift_limit=0.1, scale_limit=0.1, rotate_limit=15, border_mode=0, p=0.85),
+                       A.Resize(width=722, height=542, p=0.5),
+                       A.Normalize(max_pixel_value=255.0,p=0.5),
+                       A.Cutout(max_h_size=int(h[i]*0.1), max_w_size=int(w[i]*0.1), num_holes=8, p=0.7)
+                       ])
+
+for img in images:
+    transformed = transform(image=img)
+    transformed_image = transformed["image"]
+
+    cv2.imwrite('Augmented Sample Images', transformed_image)  
 
 
   # get new_embeddings 
