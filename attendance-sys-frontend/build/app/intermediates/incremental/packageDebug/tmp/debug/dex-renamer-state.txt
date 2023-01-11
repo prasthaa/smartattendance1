@@ -1,0 +1,4 @@
+#Mon Jan 09 22:23:57 NPT 2023
+base.0=C\:\\Users\\Dell\\Desktop\\Pratistha\\attendance-sys-frontend\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

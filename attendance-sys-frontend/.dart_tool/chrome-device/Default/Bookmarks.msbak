@@ -1,0 +1,45 @@
+{
+   "checksum": "7c16e6515fa2c2f56bf5ffc7a0112b56",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13305134341865479",
+            "guid": "7e11b7d8-61e6-4049-8a69-0071a07a976b",
+            "id": "5",
+            "name": "Attendance system",
+            "show_icon": false,
+            "source": "user_add",
+            "type": "url",
+            "url": "http://localhost:59126/#/"
+         } ],
+         "date_added": "13305133831836466",
+         "date_modified": "13305134341865479",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Favorites bar",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13305133831836474",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13305133831836477",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile favorites",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}
