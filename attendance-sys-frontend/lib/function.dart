@@ -34,6 +34,9 @@ fetchData(String url,
 
 uploadImage(filepaths, url, {label = null}) async {
   try {
+    print('*********');
+    print(filepaths.runtimeType);
+  
     var request = http.MultipartRequest('POST', Uri.parse(url));
     filepaths.forEach((filepath) async => {
           request.files.add(await http.MultipartFile.fromBytes(
@@ -42,11 +45,14 @@ uploadImage(filepaths, url, {label = null}) async {
           // request.files
           //     .add(await http.MultipartFile.fromPath('images', filepath))
         });
-    request.fields['label'] = label;
+    print('######');
+    //request.fields['label'] = label;
     var res = await request.send();
+    print('33333333333333333333333333333333333333');
+    print(res);
     var body = jsonDecode(await res.stream.bytesToString());
 
-    // print(body);
+    print(body);
     return body['data'];
   } catch (error) {
     print(error);

@@ -51,17 +51,22 @@ class _AddTrainStudentScreenState extends State<AddTrainStudentScreen> {
 
   void pickImages() async {
     List imagePaths = [];
+    print(imagePaths);
     final List<XFile>? images = await _picker.pickMultiImage();
     if (images != []) {
       //allImages.removeLast();
       // images!.forEach((image) {
       //   faceImages[image.path] = null;
       // });
+
       images!.forEach((image) => {imagePaths.add(image.path)});
+      print(images);
+      images.forEach((image) => print(image.path.runtimeType));
       //allImages.addAll(images);
       const url = '$BACKEND_URL/train/check';
       try {
         //faceImages.forEach((key, _) => imagePaths.add(key));
+        print(imagePaths);
         Map<String, dynamic> detected = await uploadImage(imagePaths, url);
         faceImages = {...faceImages, ...detected};
         detectedImages = faceImages.keys.toList();
